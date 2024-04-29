@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-board-be
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: board-be
+  template:
+    metadata:
+      labels:
+        app: board-be
+    spec:
+      containers:
+        - name: board-be
+          image: kangjoshi/board-be
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-board-be
+spec:
+  type: NodePort
+  selector:
+    app: board-be
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30007

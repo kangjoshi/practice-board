@@ -1,0 +1,27 @@
+GET http://localhost:8080/boards
+Accept: application/json
+
+###
+
+GET http://localhost:8080/boards/1
+Accept: application/json
+
+###
+
+POST http://localhost:8080/boards
+Content-Type: application/json
+
+{
+  "name": "제목입니다.",
+  "contents": "내용입니다.",
+  "userId": "3ec1898d-c437-41eb-9a8a-8c068db671cf"
+}
+
+###
+
+DELETE http://localhost:8080/boards/1
+Accept: application/json
+
+###
+
+
