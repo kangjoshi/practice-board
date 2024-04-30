@@ -15,6 +15,16 @@ spec:
       containers:
         - name: board-be
           image: kangjoshi/board-be
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /monitors
+            periodSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 60
 
 ---
 apiVersion: v1
@@ -22,10 +32,9 @@ kind: Service
 metadata:
   name: service-board-be
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: board-be
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
-      nodePort: 30007
