@@ -1,9 +1,29 @@
 spring:
   application:
     name: board-be
+  profiles:
+    group:
+      default: mysql
+      local: h2
 
-    datasource:
-      url: jdbc:h2:mem:test
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:board
+    username: sa
+    password:
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://service-mysql:3306/board?characterEncoding=UTF-8
+    username: board
+    password: board!@#

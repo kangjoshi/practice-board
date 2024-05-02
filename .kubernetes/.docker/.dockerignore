@@ -1,0 +1,7 @@
+.nuxt
+board-fe.Dockerfile
+README.md
+.gitignore
+
+node_modules
+build

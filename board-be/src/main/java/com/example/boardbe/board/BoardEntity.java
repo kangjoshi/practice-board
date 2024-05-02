@@ -1,8 +1,6 @@
 package com.example.boardbe.board;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -12,9 +10,10 @@ import java.util.UUID;
 @Accessors(chain = true)
 @Data
 @Entity
+@Table(name = "board")
 public class BoardEntity {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;

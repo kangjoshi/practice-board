@@ -15,6 +15,10 @@ spec:
       containers:
         - name: board-be
           image: kangjoshi/board-be
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: default
           readinessProbe:
             httpGet:
               port: 8080
