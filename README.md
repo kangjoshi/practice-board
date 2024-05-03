@@ -11,4 +11,5 @@
 - [X] mysql 구성하여 연결
 - [X] ingress 설정
   - nginx ingress
+- [X] 어플리케이션 환경 변수 configmap으로 관리
 - [ ] log 취합

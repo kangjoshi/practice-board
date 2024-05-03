@@ -18,7 +18,10 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: default
+              valueFrom:
+                configMapKeyRef:
+                  name: board-be-config
+                  key: profile
           readinessProbe:
             httpGet:
               port: 8080
@@ -42,3 +45,4 @@ spec:
   ports:
     - port: 80
       targetPort: 8080
+
