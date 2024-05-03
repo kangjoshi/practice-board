@@ -9,5 +9,6 @@
 - [X] be, fe를 띄어서 게시판 서비스
 - [X] Livenessprobe, ReadinessProbe 설정
 - [X] mysql 구성하여 연결
-- [ ] ingress 설정
+- [X] ingress 설정
+  - nginx ingress
 - [ ] log 취합

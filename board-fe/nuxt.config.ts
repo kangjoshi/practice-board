@@ -10,12 +10,6 @@ export default defineNuxtConfig({
         target: `${process.env.API_ORIGIN}/api`,
         changeOrigin: true,
       }
-    },
-    routeRules: {
-      '/api/**': { proxy: `${process.env.API_ORIGIN}/api/**` },
-    },
+    }
   }
-  /*
-
-  }*/
 })

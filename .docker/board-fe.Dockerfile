@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 WORKDIR /app
-COPY ../../board-fe /app
+COPY ../board-fe /app
 
 RUN rm yarn.lock
 RUN yarn

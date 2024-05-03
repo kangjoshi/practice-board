@@ -28,7 +28,7 @@ kind: Service
 metadata:
   name: service-board-fe
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: board-fe
   ports:
