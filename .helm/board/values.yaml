@@ -1,0 +1,78 @@
+be:
+  application:
+    port: &be-port 8080
+    env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: local
+  replicaCount: 2
+  image:
+    repository: kangjoshi/board-be
+    tag: ""
+    pullPolicy: IfNotPresent
+  readinessProbe:
+    httpGet:
+      port: *be-port
+      path: /monitors
+    periodSeconds: 5
+  livenessProbe:
+    tcpSocket:
+      port: *be-port
+    initialDelaySeconds: 15
+    periodSeconds: 60
+
+  service:
+    type: ClusterIP
+    port: 80
+fe:
+  application:
+    port: 3000
+  replicaCount: 1
+  image:
+    repository: kangjoshi/board-fe
+    tag: ""
+    pullPolicy: IfNotPresent
+  readinessProbe:
+    httpGet:
+      port: 3000
+      path: /
+    periodSeconds: 5
+  service:
+    type: ClusterIP
+    port: 80
+
+podAnnotations: {}
+podLabels: {}
+
+ingress:
+  enabled: true
+  name: nginx-ingress
+  className: "nginx"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nginx-ingress-controller:
+  service:
+    type: NodePort

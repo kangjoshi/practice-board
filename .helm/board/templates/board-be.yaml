@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-{{ .Chart.Name }}-be
+spec:
+  replicas: {{ .Values.be.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-be
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-be
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-be
+          image: {{ .Values.be.image.repository }}:{{ .Values.be.image.tag | default "latest" }}
+          imagePullPolicy: {{ .Values.be.image.pullPolicy }}
+          env:
+            {{- toYaml .Values.be.application.env | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.be.readinessProbe | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.be.livenessProbe | nindent 12 }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-board-be
+spec:
+  type: {{ .Values.be.service.type }}
+  selector:
+    app: {{ .Chart.Name }}-be
+  ports:
+    - port: {{ .Values.be.service.port }}
+      targetPort: {{ .Values.be.application.port }}
+
